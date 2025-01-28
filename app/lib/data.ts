@@ -4,11 +4,16 @@ import {
   CustomersTableType,
   InvoiceForm,
   InvoicesTable,
-  LatestInvoiceRaw,
+  LatestInvoice,
   Revenue,
 } from "./definitions";
 import { formatCurrency } from "./utils";
-import { supabase } from "../seed/route";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function fetchRevenue(): Promise<Revenue[]> {
   try {
@@ -54,7 +59,7 @@ export async function fetchLatestInvoices() {
       amount: formatCurrency(invoice.amount),
     }));
 
-    return latestInvoices;
+    return latestInvoices as unknown as LatestInvoice[];
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch the latest invoices.");

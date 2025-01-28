@@ -8,6 +8,7 @@ export default async function LatestInvoices({
 }: {
   latestInvoices: LatestInvoice[] | undefined;
 }) {
+  console.log("intra", latestInvoices);
   return (
     <div className="flex w-full flex-col md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -30,18 +31,18 @@ export default async function LatestInvoices({
               >
                 <div className="flex items-center">
                   <Image
-                    src={invoice.customers[0].image_url}
-                    alt={`${invoice.customers[0].name}'s profile picture`}
+                    src={invoice.customers.image_url}
+                    alt={`${invoice.customers.name}'s profile picture`}
                     className="mr-4 rounded-full"
                     width={32}
                     height={32}
                   />
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold md:text-base">
-                      {invoice.customers[0].name}
+                      {invoice.customers.name}
                     </p>
                     <p className="hidden text-sm text-gray-500 sm:block">
-                      {invoice.customers[0].email}
+                      {invoice.customers.email}
                     </p>
                   </div>
                 </div>
